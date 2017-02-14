@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+
+cd "$(dirname "$0")/.."
+
+TMP_BUILD_DIR="/tmp/learning-record-store-client-build"
+
+LEARNING_RECORD_STORE_API_URL="http://learning-record-store.herokuapp.com/" script/build
+
+cp -R build/ $TMP_BUILD_DIR
+mv "$TMP_BUILD_DIR/index.html" "$TMP_BUILD_DIR/200.html"
+
+./node_modules/.bin/surge --project "$TMP_BUILD_DIR" --domain "learning-record-store-client.surge.sh"
